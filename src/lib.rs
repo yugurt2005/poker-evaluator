@@ -163,6 +163,8 @@ impl Evaluator {
     }
 
     pub fn evaluate(&self, cards: u64) -> u16 {
+        assert!(cards.count_ones() == 7);
+
         self.table[self.indexer.index(vec![cards]) as usize]
     }
 }
