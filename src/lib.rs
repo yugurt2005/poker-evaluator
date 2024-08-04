@@ -4,6 +4,8 @@ use std::{
     io::{Read, Write},
 };
 
+use smallvec::smallvec;
+
 use poker_indexer::Indexer;
 
 const WORST: u16 = 7462;
@@ -112,7 +114,7 @@ impl Evaluator {
         let mut table = Vec::new();
 
         for i in 0..TABLE_5_SIZE {
-            table.push(classes[Evaluator::index(indexer.unindex(i as u64)[0])]);
+            table.push(classes[Evaluator::index(indexer.unindex(i as u32)[0])]);
         }
 
         table
@@ -122,7 +124,7 @@ impl Evaluator {
         let mut table_6 = vec![WORST; TABLE_6_SIZE];
 
         for i in 0..TABLE_6_SIZE {
-            let cards = indexer_6.unindex(i as u64)[0];
+            let cards = indexer_6.unindex(i as u32)[0];
 
             let mut value = cards as i64;
             while value > 0 {
@@ -130,7 +132,7 @@ impl Evaluator {
 
                 table_6[i] = cmp::min(
                     table_6[i],
-                    table_5[indexer_5.index(vec![(cards - bit as u64) as u64]) as usize],
+                    table_5[indexer_5.index(smallvec![cards - bit as u64]) as usize],
                 );
 
                 value -= bit;
@@ -144,7 +146,7 @@ impl Evaluator {
         let mut table_7 = vec![WORST; TABLE_7_SIZE];
 
         for i in 0..TABLE_7_SIZE {
-            let cards = indexer_7.unindex(i as u64)[0];
+            let cards = indexer_7.unindex(i as u32)[0];
 
             let mut value = cards as i64;
             while value > 0 {
@@ -152,7 +154,7 @@ impl Evaluator {
 
                 table_7[i] = cmp::min(
                     table_7[i],
-                    table_6[indexer_6.index(vec![(cards - bit as u64) as u64]) as usize],
+                    table_6[indexer_6.index(smallvec![cards - bit as u64]) as usize],
                 );
 
                 value -= bit;
@@ -165,7 +167,7 @@ impl Evaluator {
     pub fn evaluate(&self, cards: u64) -> u16 {
         assert!(cards.count_ones() == 7);
 
-        self.table[self.indexer.index(vec![cards]) as usize]
+        self.table[self.indexer.index(smallvec![cards]) as usize]
     }
 }
 

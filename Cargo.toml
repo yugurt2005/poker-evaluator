@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 poker_indexer = { git = "https://github.com/yugurt2005/poker-indexer", branch = "master" }
+smallvec = "1.13.2"
