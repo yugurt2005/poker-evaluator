@@ -114,7 +114,7 @@ impl Evaluator {
         let mut table = Vec::new();
 
         for i in 0..TABLE_5_SIZE {
-            table.push(classes[Evaluator::index(indexer.unindex(i as u32)[0])]);
+            table.push(classes[Evaluator::index(indexer.unindex(i as u32, 0)[0])]);
         }
 
         table
@@ -124,7 +124,7 @@ impl Evaluator {
         let mut table_6 = vec![WORST; TABLE_6_SIZE];
 
         for i in 0..TABLE_6_SIZE {
-            let cards = indexer_6.unindex(i as u32)[0];
+            let cards = indexer_6.unindex(i as u32, 0)[0];
 
             let mut value = cards as i64;
             while value > 0 {
@@ -146,7 +146,7 @@ impl Evaluator {
         let mut table_7 = vec![WORST; TABLE_7_SIZE];
 
         for i in 0..TABLE_7_SIZE {
-            let cards = indexer_7.unindex(i as u32)[0];
+            let cards = indexer_7.unindex(i as u32, 0)[0];
 
             let mut value = cards as i64;
             while value > 0 {

@@ -57,7 +57,7 @@ dependencies = [
 [[package]]
 name = "poker_indexer"
 version = "0.1.0"
-source = "git+https://github.com/yugurt2005/poker-indexer?branch=master#8fb51a79230b6a45eb595bd42809ee4a5b6beb04"
+source = "git+https://github.com/yugurt2005/poker-indexer?branch=master#01a1d1589a701d9c363e546e1cf89cd874952464"
 dependencies = [
  "itertools",
  "rand",
