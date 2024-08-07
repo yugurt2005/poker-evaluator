@@ -22,7 +22,7 @@ pub struct Evaluator {
 
 impl Evaluator {
     pub fn new(path: String) -> Self {
-        if !Path::new(&(path.clone() + "/tables.bin")).exists() {
+        if !Path::new(&(path.clone() + "/table.bin")).exists() {
             let mut contents = Vec::new();
 
             File::open(path.clone() + "/classes.bin")
