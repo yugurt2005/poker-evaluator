@@ -1,7 +1,7 @@
 use std::{
     cmp,
     fs::File,
-    io::{Read, Write},
+    io::{Read, Write}, path::Path,
 };
 
 use smallvec::smallvec;
@@ -21,8 +21,8 @@ pub struct Evaluator {
 }
 
 impl Evaluator {
-    pub fn new(path: String, load: bool) -> Self {
-        if !load {
+    pub fn new(path: String) -> Self {
+        if !Path::new(&(path.clone() + "tables.bin")).exists() {
             let mut contents = Vec::new();
 
             File::open(path.clone() + "/classes.bin")
@@ -177,12 +177,12 @@ mod tests {
 
     #[test]
     fn test_init() {
-        Evaluator::new("src/".to_string(), false);
+        Evaluator::new("src/".to_string());
     }
 
     #[test]
     fn test_evaluate() {
-        let evaluator = Evaluator::new("src/".to_string(), true);
+        let evaluator = Evaluator::new("src/".to_string());
 
         let actual =
             evaluator.evaluate(1 << 12 | 1 << 11 | 1 << 10 | 1 << 9 | 1 << 8 | 1 << 25 | 1 << 38);
@@ -193,7 +193,7 @@ mod tests {
 
     #[test]
     fn test_evaluate_2() {
-        let evaluator = Evaluator::new("src/".to_string(), true);
+        let evaluator = Evaluator::new("src/".to_string());
 
         let actual =
             evaluator.evaluate(1 << 0 | 1 << 13 | 1 << 39 | 1 << 1 | 1 << 14 | 1 << 2 | 1 << 3);
